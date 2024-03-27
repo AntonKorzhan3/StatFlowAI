@@ -18,10 +18,66 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: rgb(39, 37, 37);
+}
+
+.topBar {
+  background-color: rgb(168, 158, 134);
+  height: 55px;
+}
+
+.mainTitle {
+  font-size: 25px;
+  padding: 5px;
+  padding-left: 270px;
+  font-weight: bold;
+}
+
+.footer {
+  background-color: rgb(97, 88, 76);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 55px;
+}
+
+.author {
+  padding-top: 15px;
+  padding-left: 30px;
+}
+
+.matchesWon {
+  margin-left: 20px;
+  margin-right: 960px;
+  margin-top: 10px;
+  height: 100px;
+  text-align: center;
+  font-weight: 600;
+  background-color: rgba(80, 76, 70, 0.4);
+  border-radius: 15px;
+  padding-top: 10px;
+}
+
+.data {
+  font-size: 25px;
+  opacity: 1;
+}
+
+.lifetimeBox {
+  margin-left: 50px;
+  margin-right: 750px;
+  margin-top: 50px;
+  height: 170px;
+  text-align: center;
+  font-weight: 600;
+  background-color: rgba(80, 76, 70, 0.4);
+  border-radius: 15px;
+  padding-top: 10px;
+}
+
+.lifetimeTitle {
+  text-align: left;
+  margin-left: 20px;
+  font-size: 20px;
 }
