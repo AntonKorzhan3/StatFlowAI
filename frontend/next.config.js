@@ -2,8 +2,8 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: "/api/:path*",
-        destination: "http://localhost:8080/api/:path*", // Use the correct backend URL
+        source: "/pages",
+        destination: "http://localhost:3000", // Use the correct backend URL
       },
     ];
   },
