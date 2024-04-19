@@ -22,7 +22,7 @@ body {
 }
 
 .topBar {
-  background-color: rgb(168, 158, 134);
+  background-color: rgb(32, 31, 31);
   height: 55px;
 }
 
@@ -48,9 +48,56 @@ body {
 }
 
 .matchesWon {
-  margin-left: 20px;
-  margin-right: 960px;
+  margin-left: 40px;
+  margin-right: 940px;
   margin-top: 10px;
+  height: 100px;
+  text-align: center;
+  font-weight: 600;
+  background-color: rgba(80, 76, 70, 0.4);
+  border-radius: 15px;
+  padding-top: 10px;
+}
+
+.box1{
+  font-weight: 600;
+  background-color: rgba(80, 76, 70, 0.4);
+  border-radius: 15px;
+  margin-left: 40px;
+  margin-right: 940px;
+  margin-top: 10px;
+  padding-top: 10px;
+  height: 100px;
+}
+
+.box2{
+  margin-left: 200px;
+  margin-right: 780px;
+  margin-top: -100px;
+  height: 100px;
+  text-align: center;
+  font-weight: 600;
+  background-color: rgba(80, 76, 70, 0.4);
+  border-radius: 15px;
+  padding-top: 10px;
+}
+
+.box3{
+  margin-left: 360px;
+  margin-right: 620px;
+  margin-top: -100px;
+  height: 100px;
+  text-align: center;
+  font-weight: 600;
+  background-color: rgba(80, 76, 70, 0.4);
+  border-radius: 15px;
+  padding-top: 10px;
+}
+
+.box4{
+  margin-left: 520px;
+  margin-right: 460px;
+  margin-top: -100px;
   height: 100px;
   text-align: center;
   font-weight: 600;
@@ -61,23 +108,82 @@ body {
 
 .data {
   font-size: 25px;
-  opacity: 1;
+  opacity: 1.5;
 }
 
 .lifetimeBox {
   margin-left: 50px;
   margin-right: 750px;
-  margin-top: 50px;
+  margin-top: 30px;
   height: 170px;
   text-align: center;
   font-weight: 600;
   background-color: rgba(80, 76, 70, 0.4);
   border-radius: 15px;
   padding-top: 10px;
+  background-image: url(https://images3.alphacoders.com/841/841918.jpg);
 }
 
 .lifetimeTitle {
   text-align: left;
   margin-left: 20px;
   font-size: 20px;
+}
+
+.accountName{
+  text-align: left;
+  margin-left: 30px;
+  font-size: 30px;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.pvpBox {
+  margin-left: 50px;
+  margin-right: 750px;
+  margin-top: 30px;
+  height: 170px;
+  text-align: center;
+  font-weight: 600;
+  background-color: rgba(80, 76, 70, 0.4);
+  border-radius: 15px;
+  padding-top: 10px;
+  background-image: url(https://www.gamerguides.com/assets/media/17/83/79359-1411772400.jpg);
+  object-fit: cover;
+}
+
+.sidePanel {
+  position: fixed;
+  top: 0;
+  right: -300px; /* Adjust this value to change the initial position of the side panel */
+  height: 100vh;
+  width: 300px; /* Adjust the width of the side panel as needed */
+  background-color: #0e0d0d; /* Adjust background color */
+  transition: transform 0.3s ease-out;
+  font-size: 25px;
+  text-align: center;
+}
+
+.sidePanel.open {
+  transform: translateX(-300px); /* Adjust this value to control how far the side panel pops out */
+}
+
+.sidePanelText{
+  margin-top: 110px;
+}
+
+.pveBox {
+  margin-left: 50px;
+  margin-right: 750px;
+  margin-top: 30px;
+  height: 170px;
+  text-align: center;
+  font-weight: 600;
+  background-color: rgba(80, 76, 70, 0.4);
+  border-radius: 15px;
+  padding-top: 10px;
+  background-image: url(https://pbs.twimg.com/media/FtctaSSWIAAqrhR?format=jpg&name=4096x4096);
+  object-fit: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
