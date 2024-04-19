@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { DestinyService } from "@/services/destinyService";
 
 const Home = () => {
@@ -87,7 +87,7 @@ const Home = () => {
     fetchData();
   }, []);
 
-  const toggleSidePanel = (statType) => {
+  const toggleSidePanel = (statType: SetStateAction<string>) => {
     setSidePanelOpen(!sidePanelOpen);
     setSelectedStat(statType); // Update the selected stat type
   };
