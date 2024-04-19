@@ -7,7 +7,7 @@ export const DestinyService = new (class {
   async getAccountStats(
     membershipType: String,
     membershipId: String
-  ): Promise<Number> {
+  ): Promise<String> {
     const url = `${this.BASE_URL}/Destiny2/1/Account/4611686018452357594/Stats/`;
     const headers = { "X-API-Key": this.API_KEY };
     const response = await axios.get(url, { headers });
@@ -19,7 +19,7 @@ export const DestinyService = new (class {
 
     const activitiesWon =
       data.Response.mergedAllCharacters.results.allPvP.allTime.activitiesWon
-        .basic.value;
+        .basic.displayValue;
     
     const killsPVP = data.Response.mergedAllCharacters.results.allPvP.allTime.kills.basic.value;
     return activitiesWon;
@@ -28,7 +28,7 @@ export const DestinyService = new (class {
   async getPvpKills(
     membershipType: String,
     membershipId: String
-  ): Promise<Number> {
+  ): Promise<String> {
     const url = `${this.BASE_URL}/Destiny2/1/Account/4611686018452357594/Stats/`;
     const headers = { "X-API-Key": this.API_KEY };
     const response = await axios.get(url, { headers });
@@ -40,14 +40,14 @@ export const DestinyService = new (class {
 
     const killsPVP = 
       data.Response.mergedAllCharacters.results.allPvP.allTime.kills
-        .basic.value;
+        .basic.displayValue;
     return killsPVP;
   }
 
   async getAssists(
     membershipType: String,
     membershipId: String
-  ): Promise<Number> {
+  ): Promise<String> {
     const url = `${this.BASE_URL}/Destiny2/1/Account/4611686018452357594/Stats/`;
     const headers = { "X-API-Key": this.API_KEY };
     const response = await axios.get(url, { headers });
@@ -59,7 +59,7 @@ export const DestinyService = new (class {
 
     const assists = 
       data.Response.mergedAllCharacters.results.allPvP.allTime.assists
-        .basic.value;
+        .basic.displayValue;
     return assists;
   }
 
@@ -84,7 +84,7 @@ export const DestinyService = new (class {
   async getActivitiesCleared(
     membershipType: String,
     membershipId: String
-  ): Promise<Number> {
+  ): Promise<String> {
     const url = `${this.BASE_URL}/Destiny2/1/Account/4611686018452357594/Stats/`;
     const headers = { "X-API-Key": this.API_KEY };
     const response = await axios.get(url, { headers });
@@ -96,14 +96,14 @@ export const DestinyService = new (class {
 
     const activitiesCleared = 
       data.Response.mergedAllCharacters.results.allPvE.allTime.activitiesCleared
-        .basic.value;
+        .basic.displayValue;
     return activitiesCleared;
   }
 
   async getPveKills(
     membershipType: String,
     membershipId: String
-  ): Promise<Number> {
+  ): Promise<String> {
     const url = `${this.BASE_URL}/Destiny2/1/Account/4611686018452357594/Stats/`;
     const headers = { "X-API-Key": this.API_KEY };
     const response = await axios.get(url, { headers });
@@ -115,14 +115,14 @@ export const DestinyService = new (class {
 
     const pveKills = 
       data.Response.mergedAllCharacters.results.allPvE.allTime.kills
-        .basic.value;
+        .basic.displayValue;
     return pveKills;
   }
 
   async getPveDeaths(
     membershipType: String,
     membershipId: String
-  ): Promise<Number> {
+  ): Promise<String> {
     const url = `${this.BASE_URL}/Destiny2/1/Account/4611686018452357594/Stats/`;
     const headers = { "X-API-Key": this.API_KEY };
     const response = await axios.get(url, { headers });
@@ -134,7 +134,7 @@ export const DestinyService = new (class {
 
     const pveDeaths = 
       data.Response.mergedAllCharacters.results.allPvE.allTime.deaths
-        .basic.value;
+        .basic.displayValue;
     return pveDeaths;
   }
 
@@ -160,7 +160,7 @@ export const DestinyService = new (class {
   async getAllTimeKills(
     membershipType: String,
     membershipId: String
-  ): Promise<Number> {
+  ): Promise<String> {
     const url = `${this.BASE_URL}/Destiny2/1/Account/4611686018452357594/Stats/`;
     const headers = { "X-API-Key": this.API_KEY };
     const response = await axios.get(url, { headers });
@@ -172,14 +172,14 @@ export const DestinyService = new (class {
 
     const allTimeKills = 
       data.Response.mergedAllCharacters.merged.allTime.kills
-        .basic.value;
+        .basic.displayValue;
     return allTimeKills;
   }
 
   async getHighestLight(
     membershipType: String,
     membershipId: String
-  ): Promise<Number> {
+  ): Promise<String> {
     const url = `${this.BASE_URL}/Destiny2/1/Account/4611686018452357594/Stats/`;
     const headers = { "X-API-Key": this.API_KEY };
     const response = await axios.get(url, { headers });
@@ -191,7 +191,7 @@ export const DestinyService = new (class {
 
     const highestLight = 
       data.Response.mergedAllCharacters.merged.allTime.highestLightLevel
-        .basic.value;
+        .basic.displayValue;
     return highestLight;
   }
 })();

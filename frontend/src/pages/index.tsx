@@ -2,15 +2,15 @@ import { SetStateAction, useEffect, useState } from "react";
 import { DestinyService } from "@/services/destinyService";
 
 const Home = () => {
-  const [data, setData] = useState<Number | null>(null);
-  const [allTimeKills, setAllTimeKills] =  useState<Number | null>(null);
-  const [highestLight, setHighestLight] =  useState<Number | null>(null);
-  const [pvpKills, setPvpKills] =  useState<Number | null>(null);
-  const [assists, setAssists] =  useState<Number | null>(null);
+  const [data, setData] = useState<String | null>(null);
+  const [allTimeKills, setAllTimeKills] =  useState<String | null>(null);
+  const [highestLight, setHighestLight] =  useState<String | null>(null);
+  const [pvpKills, setPvpKills] =  useState<String | null>(null);
+  const [assists, setAssists] =  useState<String | null>(null);
   const [accName, setAccountName] = useState<String | null>(null);
-  const [actCleared, setActivitiesCleared] = useState<Number | null>(null);
-  const [pveKills, setPveKills] =  useState<Number | null>(null);
-  const [pveDeaths, setPveDeaths] =  useState<Number | null>(null);
+  const [actCleared, setActivitiesCleared] = useState<String | null>(null);
+  const [pveKills, setPveKills] =  useState<String | null>(null);
+  const [pveDeaths, setPveDeaths] =  useState<String | null>(null);
   const [kdRatio, setKdRatio] = useState<String | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [sidePanelOpen, setSidePanelOpen] = useState(false); // New state to track side panel
