@@ -1,0 +1,20 @@
+.chatBotSubmit {
+  background-color: rgb(18, 89, 155);
+}
+
+.chatBox {
+  background-color: #3b3838;
+  margin-left: 1080px;
+  margin-right: 50px;
+  border-radius: 15px;
+}
+
+.messageBox {
+  margin-right: 60px;
+  margin-bottom: 70px;
+}
+
+.messageBoxInside {
+  margin-right: 150px;
+  margin-left: 150px;
+}

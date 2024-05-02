@@ -1,16 +1,20 @@
 import { SetStateAction, useEffect, useState } from "react";
 import { DestinyService } from "@/services/destinyService";
+import MessageForm from "./MessageForm";
+import MessagesList from "./MessageList";
+import { MessagesProvider } from "@/services/useMessages";
+import Layout from "./Layout";
 
 const Home = () => {
   const [data, setData] = useState<String | null>(null);
-  const [allTimeKills, setAllTimeKills] =  useState<String | null>(null);
-  const [highestLight, setHighestLight] =  useState<String | null>(null);
-  const [pvpKills, setPvpKills] =  useState<String | null>(null);
-  const [assists, setAssists] =  useState<String | null>(null);
+  const [allTimeKills, setAllTimeKills] = useState<String | null>(null);
+  const [highestLight, setHighestLight] = useState<String | null>(null);
+  const [pvpKills, setPvpKills] = useState<String | null>(null);
+  const [assists, setAssists] = useState<String | null>(null);
   const [accName, setAccountName] = useState<String | null>(null);
   const [actCleared, setActivitiesCleared] = useState<String | null>(null);
-  const [pveKills, setPveKills] =  useState<String | null>(null);
-  const [pveDeaths, setPveDeaths] =  useState<String | null>(null);
+  const [pveKills, setPveKills] = useState<String | null>(null);
+  const [pveDeaths, setPveDeaths] = useState<String | null>(null);
   const [kdRatio, setKdRatio] = useState<String | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [sidePanelOpen, setSidePanelOpen] = useState(false); // New state to track side panel
@@ -77,10 +81,7 @@ const Home = () => {
       );
       setPveDeaths(deathsPve);
 
-      const KdRatio = await DestinyService.getKD(
-        membershipType,
-        membershipID
-      );
+      const KdRatio = await DestinyService.getKD(membershipType, membershipID);
       setKdRatio(KdRatio);
       setIsLoading(false);
     };
@@ -97,7 +98,7 @@ const Home = () => {
   }
 
   return (
-    <body>
+    <>
       <div className="topBar">
         <h1 className="mainTitle">StatFlowAI</h1>
       </div>
@@ -106,7 +107,7 @@ const Home = () => {
       </div>
       <div className="lifetimeBox">
         <p className="lifetimeTitle">Lifetime Statistics</p>
-        <div className="matchesWon" onClick={() => toggleSidePanel("matchesWon")}>
+        <div className="box1" onClick={() => toggleSidePanel("matchesWon")}>
           <p>Activities Won:</p>
           <p className="data">{data}</p>
         </div>
@@ -140,7 +141,10 @@ const Home = () => {
       </div>
       <div className="pveBox">
         <p className="lifetimeTitle">PVE</p>
-        <div className="box1" onClick={() => toggleSidePanel("activitiesCleared")}>
+        <div
+          className="box1"
+          onClick={() => toggleSidePanel("activitiesCleared")}
+        >
           <p>Activities Cleared:</p>
           <p className="data">{actCleared}</p>
         </div>
@@ -153,23 +157,56 @@ const Home = () => {
           <p className="data">{pveDeaths}</p>
         </div>
       </div>
-      <div className={`sidePanel ${sidePanelOpen ? 'open' : ''}`}>
-        {selectedStat === "matchesWon" && <p className="sidePanelText">Matches Won: {data}</p>}
-        {selectedStat === "alltimeKills" && <p className="sidePanelText">All time kills: {allTimeKills}</p>}
-        {selectedStat === "pvpKills" && <p className="sidePanelText">PVP Kills: {pvpKills}</p>}
-        {selectedStat === "activitiesCleared" && <p className="sidePanelText">PvE Activities Cleared: {actCleared}</p>}
-        {selectedStat === "kdRatio" && <p className="sidePanelText">Kills/Death Ratio: {kdRatio}</p>}
-        {selectedStat === "highestLight" && <p className="sidePanelText">Highest Light Level Reached: {highestLight}</p>}
-        {selectedStat === "characterCount" && <p className="sidePanelText">Amount of Characters Owned: 3</p>}
-        {selectedStat === "assists" && <p className="sidePanelText">Assists in PVP: {assists}</p>}
-        {selectedStat === "pveKills" && <p className="sidePanelText">Kills in PVE: {pveKills}</p>}
-        {selectedStat === "pveDeaths" && <p className="sidePanelText">Deaths in PVE: {pveDeaths}</p>}
+      <div className="chatbotBox">
+        <MessagesProvider>
+          <Layout>
+            <h2 className="chatBoxTitle">Ghost</h2>
+            <MessagesList />
+            <div className="messageBoxWide">
+              <MessageForm />
+            </div>
+          </Layout>
+        </MessagesProvider>
+      </div>
+      <div className={`sidePanel ${sidePanelOpen ? "open" : ""}`}>
+        {selectedStat === "matchesWon" && (
+          <p className="sidePanelText">Matches Won: {data}</p>
+        )}
+        {selectedStat === "alltimeKills" && (
+          <p className="sidePanelText">All time kills: {allTimeKills}</p>
+        )}
+        {selectedStat === "pvpKills" && (
+          <p className="sidePanelText">PVP Kills: {pvpKills}</p>
+        )}
+        {selectedStat === "activitiesCleared" && (
+          <p className="sidePanelText">PvE Activities Cleared: {actCleared}</p>
+        )}
+        {selectedStat === "kdRatio" && (
+          <p className="sidePanelText">Kills/Death Ratio: {kdRatio}</p>
+        )}
+        {selectedStat === "highestLight" && (
+          <p className="sidePanelText">
+            Highest Light Level Reached: {highestLight}
+          </p>
+        )}
+        {selectedStat === "characterCount" && (
+          <p className="sidePanelText">Amount of Characters Owned: 3</p>
+        )}
+        {selectedStat === "assists" && (
+          <p className="sidePanelText">Assists in PVP: {assists}</p>
+        )}
+        {selectedStat === "pveKills" && (
+          <p className="sidePanelText">Kills in PVE: {pveKills}</p>
+        )}
+        {selectedStat === "pveDeaths" && (
+          <p className="sidePanelText">Deaths in PVE: {pveDeaths}</p>
+        )}
         {/* Add similar conditionals for other stat types */}
       </div>
       <div className="footer">
         <p className="author">Developed by Anton Korzhan</p>
       </div>
-    </body>
+    </>
   );
 };
 
