@@ -1,3 +1,4 @@
+import { createMessage } from "@/helpers/createMessage";
 import { useToast } from "@apideck/components";
 //import { ChatCompletionRequestMessage } from 'openai'
 //import ChatCompletionMessageParam from 'openai';
@@ -9,7 +10,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import { sendMessage } from "./sendMessage";
 
 interface ContextProps {
   messages: OpenAI.Chat.ChatCompletionMessageParam[];
@@ -38,7 +38,7 @@ export function MessagesProvider({ children }: { children: ReactNode }) {
       const systemMessage: OpenAI.Chat.ChatCompletionMessageParam = {
         role: "system",
         content:
-          "You are an expert on Video Games and especially the game Destiny 2, you know about all the weapons, gear and modes in Destiny 2, keep your responses short and straight to the point.",
+          "You are an expert on Video Games and especially the game Destiny 2, you know about all the weapons, gear and modes in Destiny 2, keep your responses short and straight to the point. Do not answer questions unrelated to Destiny or gaming. Do not reccommend sunset weapons for users to use. Keep your responses as short as possible.",
       };
       const welcomeMessage: OpenAI.Chat.ChatCompletionMessageParam = {
         role: "assistant",
@@ -65,9 +65,9 @@ export function MessagesProvider({ children }: { children: ReactNode }) {
 
       setMessages(newMessages);
 
-      const response: ChatCompletionResponse = await sendMessage(newMessages);
+      const response: ChatCompletionResponse = await createMessage(newMessages);
 
-      const reply = response.data.choices[0].message;
+      const reply = response.choices[0].message;
       // Add the assistant message to the state
       setMessages([...newMessages, reply]);
     } catch (error) {

@@ -1,3 +1,9 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
 .chatBotSubmit {
   background-color: rgb(18, 89, 155);
 }
@@ -17,4 +23,12 @@
 .messageBoxInside {
   margin-right: 150px;
   margin-left: 150px;
+}
+
+.lifetimeBox {
+  background-image: url(https://images3.alphacoders.com/841/841918.jpg);
+}
+
+.textFieldContent {
+  color: rgb(255, 255, 255);
 }

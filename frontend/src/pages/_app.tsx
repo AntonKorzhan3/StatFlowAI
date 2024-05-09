@@ -1,8 +1,8 @@
 // _app.tsx
 import "../styles/globals.css";
-import '../styles/tailwind.css'
+import "../styles/tailwind.css";
 import { AppProps } from "next/app";
-import { ModalProvider, ToastProvider } from '@apideck/components'
+import { ModalProvider, ToastProvider } from "@apideck/components";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </ModalProvider>
     </ToastProvider>
-  )
+  );
 }
 
 export default MyApp;

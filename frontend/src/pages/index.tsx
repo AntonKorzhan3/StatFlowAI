@@ -1,24 +1,26 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { DestinyService } from "@/services/destinyService";
-import MessageForm from "./MessageForm";
-import MessagesList from "./MessageList";
-import { MessagesProvider } from "@/services/useMessages";
-import Layout from "./Layout";
+import ChatbotBox from "@/components/ChatbotBox";
+import Title from "@/components/Title";
+import { BoxInfo } from "@/types/BoxInfo";
+import SidePanel from "@/components/SidePanel";
+import StatsBox from "@/components/StatsBox/StatsBox";
+import Footer from "@/components/Footer";
+import StatsAndAiBoxLayout from "@/components/StatsAndAiBoxLayout";
+import StatsLayout from "@/components/StatsLayout";
+import LeftPanelLayout from "@/components/LeftPanelLayout";
+import AccountName from "@/components/AccountName";
 
 const Home = () => {
-  const [data, setData] = useState<String | null>(null);
-  const [allTimeKills, setAllTimeKills] = useState<String | null>(null);
-  const [highestLight, setHighestLight] = useState<String | null>(null);
-  const [pvpKills, setPvpKills] = useState<String | null>(null);
-  const [assists, setAssists] = useState<String | null>(null);
-  const [accName, setAccountName] = useState<String | null>(null);
-  const [actCleared, setActivitiesCleared] = useState<String | null>(null);
-  const [pveKills, setPveKills] = useState<String | null>(null);
-  const [pveDeaths, setPveDeaths] = useState<String | null>(null);
-  const [kdRatio, setKdRatio] = useState<String | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [sidePanelOpen, setSidePanelOpen] = useState(false); // New state to track side panel
+  const [selectedStatType, setSelectedStatType] = useState(""); // State to store the selected stat type
   const [selectedStat, setSelectedStat] = useState(""); // State to store the selected stat type
+  const [accountName, setAccountName] = useState<String>("");
+
+  const [lifetimeBoxInfo, setLifetimeBoxInfo] = useState<BoxInfo>({});
+  const [pvpBoxInfo, setPvpBoxInfo] = useState<BoxInfo>({});
+  const [pveBoxInfo, setPveBoxInfo] = useState<BoxInfo>({});
 
   // const [error, setError] = useState(null);
   const membershipID = "4611686018452357594";
@@ -27,35 +29,40 @@ const Home = () => {
     const fetchData = async () => {
       setIsLoading(true);
 
-      const activitiesWon = await DestinyService.getAccountStats(
+      const accountData = await DestinyService.getAccountStats(
         membershipType,
         membershipID
       );
-      setData(activitiesWon);
 
-      const allTimeKills = await DestinyService.getAllTimeKills(
-        membershipType,
-        membershipID
-      );
-      setAllTimeKills(allTimeKills);
+      const mergedAllCharacters = accountData.Response.mergedAllCharacters;
+      const lifetimeBoxInfo: BoxInfo = {
+        data: mergedAllCharacters.results.allPvP.allTime.activitiesWon.basic
+          .displayValue,
+        allTimeKills:
+          mergedAllCharacters.merged.allTime.kills.basic.displayValue,
+        highestLight:
+          mergedAllCharacters.merged.allTime.highestLightLevel.basic
+            .displayValue,
+      };
+      setLifetimeBoxInfo(lifetimeBoxInfo);
 
-      const highestLight = await DestinyService.getHighestLight(
-        membershipType,
-        membershipID
-      );
-      setHighestLight(highestLight);
+      const pvpData =
+        accountData.Response.mergedAllCharacters.results.allPvP.allTime;
+      const pvpBoxInfo: BoxInfo = {
+        pvpKills: pvpData.kills.basic.displayValue,
+        kdRatio: pvpData.killsDeathsRatio.basic.displayValue,
+        assists: pvpData.assists.basic.displayValue,
+      };
+      setPvpBoxInfo(pvpBoxInfo);
 
-      const killsPVP = await DestinyService.getPvpKills(
-        membershipType,
-        membershipID
-      );
-      setPvpKills(killsPVP);
-
-      const assists = await DestinyService.getAssists(
-        membershipType,
-        membershipID
-      );
-      setAssists(assists);
+      const pveData =
+        accountData.Response.mergedAllCharacters.results.allPvE.allTime;
+      const pveBoxInfo: BoxInfo = {
+        activitiesCleared: pveData.activitiesCleared.basic.displayValue,
+        pveKills: pveData.kills.basic.displayValue,
+        pveDeaths: pveData.deaths.basic.displayValue,
+      };
+      setPveBoxInfo(pveBoxInfo);
 
       const accountName = await DestinyService.getAccountName(
         membershipType,
@@ -63,34 +70,21 @@ const Home = () => {
       );
       setAccountName(accountName);
 
-      const activitiesCleared = await DestinyService.getActivitiesCleared(
-        membershipType,
-        membershipID
-      );
-      setActivitiesCleared(activitiesCleared);
-
-      const killsPvE = await DestinyService.getPveKills(
-        membershipType,
-        membershipID
-      );
-      setPveKills(killsPvE);
-
-      const deathsPve = await DestinyService.getPveDeaths(
-        membershipType,
-        membershipID
-      );
-      setPveDeaths(deathsPve);
-
-      const KdRatio = await DestinyService.getKD(membershipType, membershipID);
-      setKdRatio(KdRatio);
       setIsLoading(false);
     };
     fetchData();
   }, []);
 
-  const toggleSidePanel = (statType: SetStateAction<string>) => {
+  const toggleSidePanel = ({
+    statType,
+    stat,
+  }: {
+    statType: string;
+    stat: string;
+  }) => {
     setSidePanelOpen(!sidePanelOpen);
-    setSelectedStat(statType); // Update the selected stat type
+    setSelectedStatType(statType);
+    setSelectedStat(stat);
   };
 
   if (isLoading) {
@@ -99,112 +93,37 @@ const Home = () => {
 
   return (
     <>
-      <div className="topBar">
-        <h1 className="mainTitle">StatFlowAI</h1>
-      </div>
-      <div className="">
-        <h1 className="accountName">{accName}</h1>
-      </div>
-      <div className="lifetimeBox">
-        <p className="lifetimeTitle">Lifetime Statistics</p>
-        <div className="box1" onClick={() => toggleSidePanel("matchesWon")}>
-          <p>Activities Won:</p>
-          <p className="data">{data}</p>
-        </div>
-        <div className="box2" onClick={() => toggleSidePanel("alltimeKills")}>
-          <p>Kills:</p>
-          <p className="data">{allTimeKills}</p>
-        </div>
-        <div className="box3" onClick={() => toggleSidePanel("highestLight")}>
-          <p>Highest Light Level:</p>
-          <p className="data">{highestLight}</p>
-        </div>
-        <div className="box4" onClick={() => toggleSidePanel("characterCount")}>
-          <p>Character Count:</p>
-          <p className="data">3</p>
-        </div>
-      </div>
-      <div className="pvpBox">
-        <p className="lifetimeTitle">PVP</p>
-        <div className="box1" onClick={() => toggleSidePanel("pvpKills")}>
-          <p>Kills:</p>
-          <p className="data">{pvpKills}</p>
-        </div>
-        <div className="box2" onClick={() => toggleSidePanel("kdRatio")}>
-          <p>KD:</p>
-          <p className="data">{kdRatio}</p>
-        </div>
-        <div className="box3" onClick={() => toggleSidePanel("assists")}>
-          <p>Assists:</p>
-          <p className="data">{assists}</p>
-        </div>
-      </div>
-      <div className="pveBox">
-        <p className="lifetimeTitle">PVE</p>
-        <div
-          className="box1"
-          onClick={() => toggleSidePanel("activitiesCleared")}
-        >
-          <p>Activities Cleared:</p>
-          <p className="data">{actCleared}</p>
-        </div>
-        <div className="box2" onClick={() => toggleSidePanel("pveKills")}>
-          <p>Kills:</p>
-          <p className="data">{pveKills}</p>
-        </div>
-        <div className="box3" onClick={() => toggleSidePanel("pveDeaths")}>
-          <p>Deaths:</p>
-          <p className="data">{pveDeaths}</p>
-        </div>
-      </div>
-      <div className="chatbotBox">
-        <MessagesProvider>
-          <Layout>
-            <h2 className="chatBoxTitle">Ghost</h2>
-            <MessagesList />
-            <div className="messageBoxWide">
-              <MessageForm />
-            </div>
-          </Layout>
-        </MessagesProvider>
+      <div className="flex flex-col h-screen min-w-lg">
+        <Title />
+        <StatsAndAiBoxLayout>
+          <LeftPanelLayout>
+            <AccountName accountName={accountName} />
+            <StatsLayout>
+              <StatsBox
+                title="Lifetime Statistics"
+                info={lifetimeBoxInfo}
+                boxItemFunction={toggleSidePanel}
+              />
+              <StatsBox
+                title="PVP"
+                info={pvpBoxInfo}
+                boxItemFunction={toggleSidePanel}
+              />
+              <StatsBox
+                title="PVE"
+                info={pveBoxInfo}
+                boxItemFunction={toggleSidePanel}
+              />
+            </StatsLayout>
+          </LeftPanelLayout>
+          <ChatbotBox />
+        </StatsAndAiBoxLayout>
+        <Footer />
       </div>
       <div className={`sidePanel ${sidePanelOpen ? "open" : ""}`}>
-        {selectedStat === "matchesWon" && (
-          <p className="sidePanelText">Matches Won: {data}</p>
+        {sidePanelOpen && (
+          <SidePanel statType={selectedStatType} stat={selectedStat} />
         )}
-        {selectedStat === "alltimeKills" && (
-          <p className="sidePanelText">All time kills: {allTimeKills}</p>
-        )}
-        {selectedStat === "pvpKills" && (
-          <p className="sidePanelText">PVP Kills: {pvpKills}</p>
-        )}
-        {selectedStat === "activitiesCleared" && (
-          <p className="sidePanelText">PvE Activities Cleared: {actCleared}</p>
-        )}
-        {selectedStat === "kdRatio" && (
-          <p className="sidePanelText">Kills/Death Ratio: {kdRatio}</p>
-        )}
-        {selectedStat === "highestLight" && (
-          <p className="sidePanelText">
-            Highest Light Level Reached: {highestLight}
-          </p>
-        )}
-        {selectedStat === "characterCount" && (
-          <p className="sidePanelText">Amount of Characters Owned: 3</p>
-        )}
-        {selectedStat === "assists" && (
-          <p className="sidePanelText">Assists in PVP: {assists}</p>
-        )}
-        {selectedStat === "pveKills" && (
-          <p className="sidePanelText">Kills in PVE: {pveKills}</p>
-        )}
-        {selectedStat === "pveDeaths" && (
-          <p className="sidePanelText">Deaths in PVE: {pveDeaths}</p>
-        )}
-        {/* Add similar conditionals for other stat types */}
-      </div>
-      <div className="footer">
-        <p className="author">Developed by Anton Korzhan</p>
       </div>
     </>
   );

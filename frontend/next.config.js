@@ -1,4 +1,7 @@
 module.exports = {
+  env: {
+    openAi: process.env.OPENAI_API_KEY,
+  },
   async rewrites() {
     return [
       {

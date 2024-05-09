@@ -15,7 +15,7 @@ const MessagesList = () => {
 
   return (
     <div
-      className="max-w-3xl mx-auto pt-8"
+      className="flex-1 max-w-3xl mx-auto pt-8"
       style={{ maxHeight: "60vh", overflowY: "auto" }}
     >
       {messages?.map((message, i) => {
@@ -23,6 +23,7 @@ const MessagesList = () => {
         if (message.role === "system") return null;
         const key =
           typeof message.content === "string" ? message.content : i.toString();
+
         return (
           <div
             id={`message-${i}`}
@@ -32,6 +33,7 @@ const MessagesList = () => {
             key={key}
           >
             {!isUser && (
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src="https://i.pinimg.com/474x/58/76/eb/5876ebcdff3f77264d2766979abcf21c.jpg"
                 className="w-9 h-9 rounded-full"
@@ -51,6 +53,7 @@ const MessagesList = () => {
                 : null}
             </div>
             {isUser && (
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src="https://pm1.aminoapps.com/6841/a843e9a39d83f0df6e9d64f15766a213493906e9v2_hq.jpg"
                 className="w-9 h-9 rounded-full cursor-pointer"
