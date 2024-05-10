@@ -37,7 +37,6 @@ export const createMessage = async (
 ) => {
   const apiKey = process.env.openAi;
   const url = "https://api.openai.com/v1/chat/completions";
-  console.log("apiKey", apiKey);
 
   const body = JSON.stringify({
     messages,

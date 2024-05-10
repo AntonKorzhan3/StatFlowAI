@@ -29,7 +29,7 @@ const ChatsContext = createContext<Partial<ContextProps>>({});
 export function MessagesProvider({ children }: { children: ReactNode }) {
   const { addToast } = useToast();
   const [messages, setMessages] = useState<
-    OpenAI.Chat.ChatCompletionMessageParam[]
+    OpenAI.Chat.ChatCompletionMessageParam[] | any
   >([]);
   const [isLoadingAnswer, setIsLoadingAnswer] = useState(false);
 

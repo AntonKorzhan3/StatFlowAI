@@ -10,12 +10,10 @@ import StatsAndAiBoxLayout from "@/components/StatsAndAiBoxLayout";
 import StatsLayout from "@/components/StatsLayout";
 import LeftPanelLayout from "@/components/LeftPanelLayout";
 import AccountName from "@/components/AccountName";
-import Sidebar from "@/components/Sidebar";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [sidePanelOpen, setSidePanelOpen] = useState(false); // New state to track side panel
-  const [sideBarOpen, setSideBarOpen] = useState(false);
   const [selectedStatType, setSelectedStatType] = useState(""); // State to store the selected stat type
   const [selectedStat, setSelectedStat] = useState(""); // State to store the selected stat type
   const [accountName, setAccountName] = useState<String>("");
@@ -89,10 +87,6 @@ const Home = () => {
     setSelectedStat(stat);
   };
 
-  const toggleSideBar = () => {
-    setSideBarOpen(!sideBarOpen);
-  };
-
   if (isLoading) {
     return <>Loading...</>;
   }
@@ -100,33 +94,26 @@ const Home = () => {
   return (
     <>
       <div className="flex flex-col h-screen min-w-lg">
-        <Sidebar></Sidebar>
         <Title />
         <StatsAndAiBoxLayout>
           <LeftPanelLayout>
             <AccountName accountName={accountName} />
             <StatsLayout>
-              <div className="lifeTimeBox">
-                <StatsBox
-                  title="Lifetime Statistics"
-                  info={lifetimeBoxInfo}
-                  boxItemFunction={toggleSidePanel}
-                />
-              </div>
-              <div className="pvpBox">
-                <StatsBox
-                  title="PVP"
-                  info={pvpBoxInfo}
-                  boxItemFunction={toggleSidePanel}
-                />
-              </div>
-              <div className="pveBox">
-                <StatsBox
-                  title="PVE"
-                  info={pveBoxInfo}
-                  boxItemFunction={toggleSidePanel}
-                />
-              </div>
+              <StatsBox
+                title="Lifetime Statistics"
+                info={lifetimeBoxInfo}
+                boxItemFunction={toggleSidePanel}
+              />
+              <StatsBox
+                title="PVP"
+                info={pvpBoxInfo}
+                boxItemFunction={toggleSidePanel}
+              />
+              <StatsBox
+                title="PVE"
+                info={pveBoxInfo}
+                boxItemFunction={toggleSidePanel}
+              />
             </StatsLayout>
           </LeftPanelLayout>
           <ChatbotBox />
