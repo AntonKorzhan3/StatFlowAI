@@ -40,6 +40,7 @@ const Home = () => {
       } else {
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get("code");
+        console.log("Auth code I need before", code);
         if (code) {
           const response = await fetch(
             "https://www.bungie.net/platform/app/oauth/token/",
