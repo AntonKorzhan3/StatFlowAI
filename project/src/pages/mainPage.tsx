@@ -195,7 +195,6 @@ const Home = () => {
       </div>
       <div className="flex flex-1 overflow-hidden">
         {isSidebarOpen && <Sidebar />}
-        <div className="flex-1">Main Content</div>
       </div>
     </>
   );
