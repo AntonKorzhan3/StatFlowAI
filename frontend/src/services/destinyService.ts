@@ -29,7 +29,7 @@ export const DestinyService = new (class {
     memberShipId: String,
     membershipType: String
   ): Promise<any> {
-    const url = `${this.BASE_URL}/User/GetMembershipsById/${memberShipId}/${membershipType}`;
+    const url = `${this.BASE_URL}/User/GetMembershipsById/${memberShipId}/${membershipType}/`;
     const headers = { "X-API-Key": this.API_KEY };
     const response = await axios.get(url, { headers });
     const data = await response.data;
