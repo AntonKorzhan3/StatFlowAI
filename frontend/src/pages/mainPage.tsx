@@ -27,7 +27,8 @@ const Home = () => {
 
   const membershipID = "4611686018452357594";
   const membershipType = "1";
-
+  const clientId = process.env.authID;
+  const clientSecret = process.env.authSecret;
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -48,7 +49,9 @@ const Home = () => {
               method: "POST",
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                Authorization: `Basic ${btoa(`authID:authSecret`)}`,
+                Authorization: `Basic ${window.btoa(
+                  `${clientId}:${clientSecret}`
+                )}`,
               },
               body: new URLSearchParams({
                 grant_type: "authorization_code",
