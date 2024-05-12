@@ -69,7 +69,7 @@ const Home = () => {
           setMemberShipId(membership_id);
           console.log("Pure values", membership_id);
           localStorage.setItem("accessToken", access_token);
-          localStorage.setItem("memebershipId", membership_id);
+          localStorage.setItem("membershipId", membership_id);
         }
       }
 
