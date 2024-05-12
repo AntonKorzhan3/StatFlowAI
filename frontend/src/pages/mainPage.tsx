@@ -65,7 +65,9 @@ const Home = () => {
           const { access_token, membership_id } = data;
           setAccessToken(access_token);
           setMemberShipId(membership_id);
+          console.log("Pure values", membership_id);
           localStorage.setItem("accessToken", access_token);
+          localStorage.setItem("memebershipId", membership_id);
         }
       }
 
