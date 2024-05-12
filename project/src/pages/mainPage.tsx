@@ -73,10 +73,6 @@ const Home = () => {
 
       const memID = localStorage.getItem("membershipId") as string;
       console.log("Stored ID", memID);
-      //   const membershipId = await DestinyService.getCurrentAccountID(
-      //     memID,
-      //     membershipType
-      //   );
 
       const membershipID = await DestinyService.getCurrentAccountID(
         memID,
@@ -91,12 +87,15 @@ const Home = () => {
 
       const mergedAllCharacters = accountData.Response.mergedAllCharacters;
       const lifetimeBoxInfo: BoxInfo = {
-        data: mergedAllCharacters.results.allPvP.allTime.activitiesWon.basic
-          .displayValue,
+        data: mergedAllCharacters.results.allPvP.allTime.objectivesCompleted
+          .basic.displayValue,
         allTimeKills:
           mergedAllCharacters.merged.allTime.kills.basic.displayValue,
         highestLight:
           mergedAllCharacters.merged.allTime.highestLightLevel.basic
+            .displayValue,
+        publicEventsCleared:
+          mergedAllCharacters.merged.allTime.heroicPublicEventsCompleted.basic
             .displayValue,
       };
       setLifetimeBoxInfo(lifetimeBoxInfo);
