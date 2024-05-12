@@ -117,3 +117,7 @@ body {
 .welcomeTitle {
   font-size: 40px;
 }
+
+.statBoxText {
+  text-align: center;
+}
