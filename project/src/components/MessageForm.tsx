@@ -42,7 +42,7 @@ const MessageForm = () => {
         <Button
           variant="contained"
           type="submit"
-          className="absolute right-3 top-8"
+          className="absolute right-1 top-8"
           endIcon={<SendIcon />}
         >
           Send
