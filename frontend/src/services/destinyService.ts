@@ -10,7 +10,6 @@ export const DestinyService = new (class {
       Authorization: `Bearer ${accessToken}`,
       "X-API-Key": this.API_KEY,
     };
-
     try {
       const response = await axios.get(url, { headers });
       const userData = response.data;
@@ -26,11 +25,27 @@ export const DestinyService = new (class {
     }
   }
 
+  async getCurrentAccountID(
+    memberShipId: String,
+    membershipType: String
+  ): Promise<any> {
+    const url = `${this.BASE_URL}/User/GetMembershipsById/${memberShipId}/${membershipType}`;
+    const headers = { "X-API-Key": this.API_KEY };
+    const response = await axios.get(url, { headers });
+    const data = await response.data;
+    if (response.status !== 200) {
+      // Throw error
+    }
+
+    const memID = data.Response.destinyMemberships.membershipId;
+    return memID;
+  }
+
   async getAccountStats(
     membershipType: String,
     membershipId: String
   ): Promise<any> {
-    const url = `${this.BASE_URL}/Destiny2/1/Account/4611686018452357594/Stats/`;
+    const url = `${this.BASE_URL}/Destiny2/${membershipType}/Account/${membershipId}/Stats/`;
     const headers = { "X-API-Key": this.API_KEY };
     const response = await axios.get(url, { headers });
     const data = await response.data;
@@ -46,7 +61,7 @@ export const DestinyService = new (class {
     membershipType: String,
     membershipId: String
   ): Promise<String> {
-    const url = `${this.BASE_URL}/Destiny2/1/Profile/4611686018452357594/LinkedProfiles/`;
+    const url = `${this.BASE_URL}/Destiny2/${membershipType}/Profile/${membershipId}/LinkedProfiles/`;
     const headers = { "X-API-Key": this.API_KEY };
     const response = await axios.get(url, { headers });
     const data = await response.data;
