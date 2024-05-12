@@ -20,7 +20,6 @@ const Home = () => {
   const [selectedStat, setSelectedStat] = useState(""); // State to store the selected stat type
   const [accountName, setAccountName] = useState<String>("");
   const [accessToken, setAccessToken] = useState("");
-  const [membershipID, setMembershipID] = useState<String>("");
   const [lifetimeBoxInfo, setLifetimeBoxInfo] = useState<BoxInfo>({});
   const [pvpBoxInfo, setPvpBoxInfo] = useState<BoxInfo>({});
   const [pveBoxInfo, setPveBoxInfo] = useState<BoxInfo>({});
@@ -78,14 +77,13 @@ const Home = () => {
       //     memID,
       //     membershipType
       //   );
-      const membershipId = await DestinyService.getCurrentAccountID(
+
+      const membershipID = await DestinyService.getCurrentAccountID(
         memID,
         membershipType
       );
-      const membershipID =
-        membershipId.Response.destinyMemberships.membershipId;
+      membershipID(membershipID);
 
-      console.log("Pulled ID", membershipID);
       const accountData = await DestinyService.getAccountStats(
         membershipType,
         membershipID
