@@ -39,8 +39,8 @@ export const DestinyService = new (class {
       // Throw error
     }
 
-    const memberShipID = data.Response.destinyMemberships.membershipId;
-    return memberShipID;
+    const membershipID = data.Response.destinyMemberships.membershipId;
+    return membershipID;
   }
 
   async getAccountStats(

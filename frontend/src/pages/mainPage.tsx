@@ -20,12 +20,12 @@ const Home = () => {
   const [selectedStat, setSelectedStat] = useState(""); // State to store the selected stat type
   const [accountName, setAccountName] = useState<String>("");
   const [accessToken, setAccessToken] = useState("");
-  const [memberShipId, setMemberShipId] = useState("");
+  const [membershipID, setMembershipID] = useState<String>("");
   const [lifetimeBoxInfo, setLifetimeBoxInfo] = useState<BoxInfo>({});
   const [pvpBoxInfo, setPvpBoxInfo] = useState<BoxInfo>({});
   const [pveBoxInfo, setPveBoxInfo] = useState<BoxInfo>({});
   //const [membershipID, setMembershipID] = useState<String>("");
-  const membershipID = "4611686018452357594";
+  //const membershipID = "4611686018452357594";
   const membershipType = "1";
   const clientId = process.env.authID;
   const clientSecret = process.env.authSecret;
@@ -66,7 +66,6 @@ const Home = () => {
           console.log("POST Response I want", data);
           const { access_token, membership_id } = data;
           setAccessToken(access_token);
-          setMemberShipId(membership_id);
           console.log("Pure values", membership_id);
           localStorage.setItem("accessToken", access_token);
           localStorage.setItem("membershipId", membership_id);
@@ -79,6 +78,11 @@ const Home = () => {
         memID,
         membershipType
       );
+      const membershipID = await DestinyService.getCurrentAccountID(
+        memID,
+        membershipType
+      );
+      setMembershipID(membershipID);
 
       const accountData = await DestinyService.getAccountStats(
         membershipType,
@@ -124,7 +128,7 @@ const Home = () => {
       setIsLoading(false);
     };
     fetchData();
-  }, [accessToken, memberShipId]);
+  }, [accessToken]);
 
   const toggleSidePanel = ({
     statType,
