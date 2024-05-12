@@ -8,6 +8,7 @@ export const DestinyService = new (class {
     const url = `${this.BASE_URL}/User/GetCurrentBungieNetUser/`;
     const headers = {
       Authorization: `Bearer ${accessToken}`,
+      "X-API-Key": this.API_KEY,
     };
 
     try {
