@@ -56,6 +56,7 @@ const Home = () => {
             }
           );
           const data = await response.json();
+          console.log("POST Response I want", data);
           const { access_token } = data;
           setAccessToken(access_token);
           localStorage.setItem("accessToken", access_token);
