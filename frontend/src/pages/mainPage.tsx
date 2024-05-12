@@ -51,7 +51,7 @@ const Home = () => {
               body: new URLSearchParams({
                 grant_type: "authorization_code",
                 code,
-                redirect_uri: `${window.location.origin}/auth/callback`,
+                redirect_uri: `${window.location.origin}/mainPage`,
               }),
             }
           );
