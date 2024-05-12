@@ -27,21 +27,21 @@ export const DestinyService = new (class {
     }
   }
 
-  // async getCurrentAccountID(
-  //   memberShipId: String,
-  //   membershipType: String
-  // ): Promise<any> {
-  //   const url = `${this.BASE_URL}/User/GetMembershipsById/${memberShipId}/${membershipType}/`;
-  //   const headers = { "X-API-Key": this.API_KEY };
-  //   const response = await axios.get(url, { headers });
-  //   const data = await response.data;
-  //   if (response.status !== 200) {
-  //     // Throw error
-  //   }
+  async getCurrentAccountID(
+    memID: String,
+    membershipType: String
+  ): Promise<any> {
+    const url = `${this.BASE_URL}/User/GetMembershipsById/${memID}/${membershipType}/`;
+    const headers = { "X-API-Key": this.API_KEY };
+    const response = await axios.get(url, { headers });
+    const data = await response.data;
+    if (response.status !== 200) {
+      // Throw error
+    }
 
-  //   const memID = data.Response.destinyMemberships.membershipId;
-  //   return memID;
-  // }
+    const memberShipID = data.Response.destinyMemberships.membershipId;
+    return memberShipID;
+  }
 
   async getAccountStats(
     membershipType: String,

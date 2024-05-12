@@ -35,9 +35,9 @@ const Home = () => {
 
       // Get access token if available
       const storedToken = localStorage.getItem("accessToken");
-      const storedID = localStorage.getItem("membershipId");
+      //const storedID = localStorage.getItem("membershipId");
       console.log("Stored token", storedToken);
-      console.log("Stored ID", storedID);
+      //console.log("Stored ID", storedID);
       if (storedToken) {
         setAccessToken(storedToken);
       } else {
@@ -73,11 +73,12 @@ const Home = () => {
         }
       }
 
-      //   const membershipID = await DestinyService.getCurrentAccountID(
-      //     memberShipId,
-      //     membershipType
-      //   );
-      //   setMembershipID(membershipID);
+      const memID = localStorage.get("membershipId");
+      console.log("Stored ID", memID);
+      const membershipId = await DestinyService.getCurrentAccountID(
+        memID,
+        membershipType
+      );
 
       const accountData = await DestinyService.getAccountStats(
         membershipType,
