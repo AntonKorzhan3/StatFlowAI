@@ -11,6 +11,7 @@ import StatsLayout from "@/components/StatsLayout";
 import LeftPanelLayout from "@/components/LeftPanelLayout";
 import AccountName from "@/components/AccountName";
 import Sidebar from "@/components/Sidebar";
+import SidebarToggle from "@/components/sidebarToggle";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -154,8 +155,8 @@ const Home = () => {
   return (
     <>
       <div className="flex flex-col h-screen min-w-lg">
-        <Sidebar></Sidebar>
-        <Title toggleSidebar={toggleSidebar} />
+        <SidebarToggle toggleSidebar={toggleSidebar} />
+        <Title />
         <StatsAndAiBoxLayout>
           <LeftPanelLayout>
             <AccountName accountName={accountName} />
