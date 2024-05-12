@@ -116,6 +116,7 @@ const Home = () => {
         activitiesCleared: pveData.activitiesCleared.basic.displayValue,
         pveKills: pveData.kills.basic.displayValue,
         pveDeaths: pveData.deaths.basic.displayValue,
+        bestWeaponType: pveData.weaponBestType.basic.displayValue,
       };
       setPveBoxInfo(pveBoxInfo);
 
