@@ -35,7 +35,9 @@ const Home = () => {
 
       // Get access token if available
       const storedToken = localStorage.getItem("accessToken");
+      const storedID = localStorage.getItem("membershipId");
       console.log("Stored token", storedToken);
+      console.log("Stored ID", storedID);
       if (storedToken) {
         setAccessToken(storedToken);
       } else {
