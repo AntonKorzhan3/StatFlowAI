@@ -82,7 +82,6 @@ const Home = () => {
         memID,
         membershipType
       );
-      membershipID(membershipID);
 
       const accountData = await DestinyService.getAccountStats(
         membershipType,
