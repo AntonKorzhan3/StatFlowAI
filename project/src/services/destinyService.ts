@@ -6,27 +6,6 @@ export const DestinyService = new (class {
   clientId = process.env.authID;
   clientSecret = process.env.authSecret;
 
-  async getCurrentBungieNetUser(accessToken: string): Promise<any> {
-    const url = `${this.BASE_URL}/User/GetCurrentBungieNetUser/`;
-    const headers = {
-      Authorization: `Bearer ${accessToken}`,
-      "X-API-Key": this.API_KEY,
-    };
-    try {
-      const response = await axios.get(url, { headers });
-      const userData = response.data;
-
-      if (response.status !== 200) {
-        // Handle error
-      }
-
-      return userData;
-    } catch (error) {
-      // Handle error
-      throw new Error("Failed to get current BungieNet user");
-    }
-  }
-
   async getCurrentAccountID(
     memID: String,
     membershipType: String
@@ -36,7 +15,7 @@ export const DestinyService = new (class {
     const response = await axios.get(url, { headers });
     const data = await response.data;
     if (response.status !== 200) {
-      // Throw error
+      throw new Error("No destiny membership found");
     }
 
     const destinyMemberships = data.Response.destinyMemberships;
@@ -49,7 +28,6 @@ export const DestinyService = new (class {
       // Extract membershipId from the membership object
       const membershipID = membership.membershipId;
 
-      console.log("Membership ID:", membershipID);
       return membershipID;
     } else {
       throw new Error("No destiny memberships found");
@@ -66,7 +44,7 @@ export const DestinyService = new (class {
     const data = await response.data;
 
     if (response.status !== 200) {
-      // Throw error
+      throw new Error("No destiny stats found");
     }
 
     return data;
@@ -82,7 +60,7 @@ export const DestinyService = new (class {
     const data = await response.data;
 
     if (response.status !== 200) {
-      // Throw error
+      throw new Error("No destiny name found");
     }
 
     const accountName = data.Response.bnetMembership.displayName;

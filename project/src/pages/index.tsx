@@ -11,8 +11,15 @@ const RedirectButton: React.FC = () => {
       <h1 className="welcomeTitle flex justify-center items-center">
         Welcome to StatFlowAI
       </h1>
+      <p>
+        StatFlowAI is a website tailored for the video game Destiny 2 that
+        incetivises assisting players and especially newer players with the game
+        through the use of AI. The AI can assist the player and support them
+        through their journey. New players that get confused dont need to suffer
+        anymore! Ghost AI is here to assist you with your needs.
+      </p>
       <button className="authorize-button" onClick={handleRedirect}>
-        Redirect to Bungie OAuth
+        Click here to Login!
       </button>
     </>
   );

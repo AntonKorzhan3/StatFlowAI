@@ -10,8 +10,6 @@ import StatsAndAiBoxLayout from "@/components/StatsAndAiBoxLayout";
 import StatsLayout from "@/components/StatsLayout";
 import LeftPanelLayout from "@/components/LeftPanelLayout";
 import AccountName from "@/components/AccountName";
-import Sidebar from "@/components/Sidebar";
-import SidebarToggle from "@/components/sidebarToggle";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,15 +33,11 @@ const Home = () => {
 
       // Get access token if available
       const storedToken = localStorage.getItem("accessToken");
-      //const storedID = localStorage.getItem("membershipId");
-      console.log("Stored token", storedToken);
-      //console.log("Stored ID", storedID);
       if (storedToken) {
         setAccessToken(storedToken);
       } else {
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get("code");
-        console.log("Auth code I need before", code);
         if (code) {
           const response = await fetch(
             "https://www.bungie.net/platform/app/oauth/token/",
@@ -63,24 +57,20 @@ const Home = () => {
             }
           );
           const data = await response.json();
-          console.log("POST Response I want", data);
           const { access_token, membership_id } = data;
           setAccessToken(access_token);
-          console.log("Pure values", membership_id);
           localStorage.setItem("accessToken", access_token);
           localStorage.setItem("membershipId", membership_id);
         }
       }
 
       const memID = localStorage.getItem("membershipId") as string;
-      console.log("Stored ID", memID);
 
       const membershipID = await DestinyService.getCurrentAccountID(
         memID,
         membershipType
       );
 
-      console.log("Pulled ID", membershipID);
       const accountData = await DestinyService.getAccountStats(
         membershipType,
         membershipID
@@ -155,7 +145,6 @@ const Home = () => {
   return (
     <>
       <div className="flex flex-col h-screen min-w-lg">
-        <SidebarToggle toggleSidebar={toggleSidebar} />
         <Title />
         <StatsAndAiBoxLayout>
           <LeftPanelLayout>
@@ -192,9 +181,6 @@ const Home = () => {
         {sidePanelOpen && (
           <SidePanel statType={selectedStatType} stat={selectedStat} />
         )}
-      </div>
-      <div className="flex flex-1 overflow-hidden">
-        {isSidebarOpen && <Sidebar />}
       </div>
     </>
   );
