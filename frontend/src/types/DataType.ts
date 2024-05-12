@@ -1,1 +1,0 @@
-export type BoxData = { name: String; value: String | null };
