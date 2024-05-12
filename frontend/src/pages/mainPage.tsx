@@ -24,8 +24,8 @@ const Home = () => {
   const [lifetimeBoxInfo, setLifetimeBoxInfo] = useState<BoxInfo>({});
   const [pvpBoxInfo, setPvpBoxInfo] = useState<BoxInfo>({});
   const [pveBoxInfo, setPveBoxInfo] = useState<BoxInfo>({});
-  const [membershipID, setMembershipID] = useState<String>("");
-  //const membershipID = "4611686018452357594";
+  //const [membershipID, setMembershipID] = useState<String>("");
+  const membershipID = "4611686018452357594";
   const membershipType = "1";
   const clientId = process.env.authID;
   const clientSecret = process.env.authSecret;
@@ -69,11 +69,11 @@ const Home = () => {
         }
       }
 
-      const membershipID = await DestinyService.getCurrentAccountID(
-        memberShipId,
-        membershipType
-      );
-      setMembershipID(membershipID);
+      //   const membershipID = await DestinyService.getCurrentAccountID(
+      //     memberShipId,
+      //     membershipType
+      //   );
+      //   setMembershipID(membershipID);
 
       const accountData = await DestinyService.getAccountStats(
         membershipType,

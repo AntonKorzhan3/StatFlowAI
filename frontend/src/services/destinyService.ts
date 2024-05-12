@@ -3,6 +3,37 @@ import axios from "axios";
 export const DestinyService = new (class {
   API_KEY = process.env.bungieApiKey;
   BASE_URL = "https://www.bungie.net/Platform";
+  clientId = process.env.authID;
+  clientSecret = process.env.authSecret;
+
+  async exchangeAuthorizationCodeForToken(
+    code: string
+  ): Promise<{ access_token: string; membership_id: string }> {
+    console.log("Auth code I need before", code);
+    const url = `${this.BASE_URL}/app/oauth/token/`;
+    const headers = {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Basic ${window.btoa(
+        `${this.clientId}:${this.clientSecret}`
+      )}`,
+    };
+    const body = new URLSearchParams({
+      grant_type: "authorization_code",
+      code,
+      redirect_uri: `${window.location.origin}/mainPage`,
+    });
+
+    try {
+      const response = await axios.post(url, body, { headers });
+      console.log("POST Response I want", response);
+      const responseData = response.data;
+      const { access_token, membership_id } = responseData;
+      return { access_token, membership_id };
+    } catch (error) {
+      // Handle error
+      throw new Error("Failed to exchange authorization code for token");
+    }
+  }
 
   async getCurrentBungieNetUser(accessToken: string): Promise<any> {
     const url = `${this.BASE_URL}/User/GetCurrentBungieNetUser/`;
@@ -25,21 +56,21 @@ export const DestinyService = new (class {
     }
   }
 
-  async getCurrentAccountID(
-    memberShipId: String,
-    membershipType: String
-  ): Promise<any> {
-    const url = `${this.BASE_URL}/User/GetMembershipsById/${memberShipId}/${membershipType}/`;
-    const headers = { "X-API-Key": this.API_KEY };
-    const response = await axios.get(url, { headers });
-    const data = await response.data;
-    if (response.status !== 200) {
-      // Throw error
-    }
+  // async getCurrentAccountID(
+  //   memberShipId: String,
+  //   membershipType: String
+  // ): Promise<any> {
+  //   const url = `${this.BASE_URL}/User/GetMembershipsById/${memberShipId}/${membershipType}/`;
+  //   const headers = { "X-API-Key": this.API_KEY };
+  //   const response = await axios.get(url, { headers });
+  //   const data = await response.data;
+  //   if (response.status !== 200) {
+  //     // Throw error
+  //   }
 
-    const memID = data.Response.destinyMemberships.membershipId;
-    return memID;
-  }
+  //   const memID = data.Response.destinyMemberships.membershipId;
+  //   return memID;
+  // }
 
   async getAccountStats(
     membershipType: String,
