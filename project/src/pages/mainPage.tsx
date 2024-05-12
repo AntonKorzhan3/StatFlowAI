@@ -15,7 +15,7 @@ import Sidebar from "@/components/Sidebar";
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [sidePanelOpen, setSidePanelOpen] = useState(false); // New state to track side panel
-  const [sideBarOpen, setSideBarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedStatType, setSelectedStatType] = useState(""); // State to store the selected stat type
   const [selectedStat, setSelectedStat] = useState(""); // State to store the selected stat type
   const [accountName, setAccountName] = useState<String>("");
@@ -143,8 +143,8 @@ const Home = () => {
     setSelectedStat(stat);
   };
 
-  const toggleSideBar = () => {
-    setSideBarOpen(!sideBarOpen);
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   if (isLoading) {
@@ -155,7 +155,7 @@ const Home = () => {
     <>
       <div className="flex flex-col h-screen min-w-lg">
         <Sidebar></Sidebar>
-        <Title />
+        <Title toggleSidebar={toggleSidebar} />
         <StatsAndAiBoxLayout>
           <LeftPanelLayout>
             <AccountName accountName={accountName} />
@@ -191,6 +191,10 @@ const Home = () => {
         {sidePanelOpen && (
           <SidePanel statType={selectedStatType} stat={selectedStat} />
         )}
+      </div>
+      <div className="flex flex-1 overflow-hidden">
+        {isSidebarOpen && <Sidebar />}
+        <div className="flex-1">Main Content</div>
       </div>
     </>
   );
