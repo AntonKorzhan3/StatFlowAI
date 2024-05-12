@@ -82,7 +82,7 @@ const Home = () => {
         memID,
         membershipType
       );
-
+      console.log("Pulled ID", membershipID);
       const accountData = await DestinyService.getAccountStats(
         membershipType,
         membershipID
