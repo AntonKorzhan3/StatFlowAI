@@ -34,40 +34,40 @@ const Home = () => {
       setIsLoading(true);
 
       // Get access token if available
-      const storedToken = localStorage.getItem("accessToken");
-      console.log("Stored token", storedToken);
-      if (storedToken) {
-        setAccessToken(storedToken);
-      } else {
-        const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get("code");
-        console.log("Auth code I need before", code);
-        if (code) {
-          const response = await fetch(
-            "https://www.bungie.net/platform/app/oauth/token/",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                Authorization: `Basic ${window.btoa(
-                  `${clientId}:${clientSecret}`
-                )}`,
-              },
-              body: new URLSearchParams({
-                grant_type: "authorization_code",
-                code,
-                redirect_uri: `${window.location.origin}/mainPage`,
-              }),
-            }
-          );
-          const data = await response.json();
-          console.log("POST Response I want", data);
-          const { access_token, membership_id } = data;
-          setAccessToken(access_token);
-          setMemberShipId(membership_id);
-          localStorage.setItem("accessToken", access_token);
-        }
-      }
+      //   const storedToken = localStorage.getItem("accessToken");
+      //   console.log("Stored token", storedToken);
+      //   if (storedToken) {
+      //     setAccessToken(storedToken);
+      //   } else {
+      //     const urlParams = new URLSearchParams(window.location.search);
+      //     const code = urlParams.get("code");
+      //     console.log("Auth code I need before", code);
+      //     if (code) {
+      //       const response = await fetch(
+      //         "https://www.bungie.net/platform/app/oauth/token/",
+      //         {
+      //           method: "POST",
+      //           headers: {
+      //             "Content-Type": "application/x-www-form-urlencoded",
+      //             Authorization: `Basic ${window.btoa(
+      //               `${clientId}:${clientSecret}`
+      //             )}`,
+      //           },
+      //           body: new URLSearchParams({
+      //             grant_type: "authorization_code",
+      //             code,
+      //             redirect_uri: `${window.location.origin}/mainPage`,
+      //           }),
+      //         }
+      //       );
+      //       const data = await response.json();
+      //       console.log("POST Response I want", data);
+      //       const { access_token, membership_id } = data;
+      //       setAccessToken(access_token);
+      //       setMemberShipId(membership_id);
+      //       localStorage.setItem("accessToken", access_token);
+      //     }
+      //   }
 
       //   const membershipID = await DestinyService.getCurrentAccountID(
       //     memberShipId,
