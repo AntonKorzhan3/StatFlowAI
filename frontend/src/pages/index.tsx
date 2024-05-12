@@ -71,7 +71,7 @@ const Home = () => {
         membershipID
       );
       setAccountName(accountName);
-
+      console.log("Acc name test", accountName);
       setIsLoading(false);
     };
     fetchData();

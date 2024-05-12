@@ -39,8 +39,21 @@ export const DestinyService = new (class {
       // Throw error
     }
 
-    const membershipID = data.Response.destinyMemberships.membershipId;
-    return membershipID;
+    const destinyMemberships = data.Response.destinyMemberships;
+
+    // Check if destinyMemberships is an array and not empty
+    if (Array.isArray(destinyMemberships) && destinyMemberships.length > 0) {
+      // Access the first membership object in the array
+      const membership = destinyMemberships[0];
+
+      // Extract membershipId from the membership object
+      const membershipID = membership.membershipId;
+
+      console.log("Membership ID:", membershipID);
+      return membershipID;
+    } else {
+      throw new Error("No destiny memberships found");
+    }
   }
 
   async getAccountStats(
