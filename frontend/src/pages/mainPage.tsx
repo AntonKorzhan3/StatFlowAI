@@ -85,6 +85,7 @@ const Home = () => {
       const membershipID =
         membershipId.Response.destinyMemberships.membershipId;
 
+      console.log("Pulled ID", membershipID);
       const accountData = await DestinyService.getAccountStats(
         membershipType,
         membershipID
