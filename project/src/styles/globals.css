@@ -121,3 +121,8 @@ body {
 .statBoxText {
   text-align: center;
 }
+
+.infoText {
+  text-align: center;
+  font-size: 20px;
+}

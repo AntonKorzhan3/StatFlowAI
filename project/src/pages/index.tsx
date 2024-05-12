@@ -11,7 +11,7 @@ const RedirectButton: React.FC = () => {
       <h1 className="welcomeTitle flex justify-center items-center">
         Welcome to StatFlowAI
       </h1>
-      <p>
+      <p className="infoText">
         StatFlowAI is a website tailored for the video game Destiny 2 that
         incetivises assisting players and especially newer players with the game
         through the use of AI. The AI can assist the player and support them
