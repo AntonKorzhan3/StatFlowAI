@@ -74,15 +74,16 @@ const Home = () => {
 
       const memID = localStorage.getItem("membershipId") as string;
       console.log("Stored ID", memID);
+      //   const membershipId = await DestinyService.getCurrentAccountID(
+      //     memID,
+      //     membershipType
+      //   );
       const membershipId = await DestinyService.getCurrentAccountID(
         memID,
         membershipType
       );
-      const membershipID = await DestinyService.getCurrentAccountID(
-        memID,
-        membershipType
-      );
-      setMembershipID(membershipID);
+      const membershipID =
+        membershipId.Response.destinyMemberships.membershipId;
 
       const accountData = await DestinyService.getAccountStats(
         membershipType,
