@@ -106,6 +106,7 @@ const Home = () => {
         pvpKills: pvpData.kills.basic.displayValue,
         kdRatio: pvpData.killsDeathsRatio.basic.displayValue,
         assists: pvpData.assists.basic.displayValue,
+        matchesWon: pvpData.activitiesWon.basic.displayValue,
       };
       setPvpBoxInfo(pvpBoxInfo);
 

@@ -9,6 +9,7 @@ export const BoxItemTitles: { [key: string]: string } = {
   kdRatio: "KD",
   assists: "Assists",
   publicEventsCleared: "Public Events Cleared",
+  matchesWon: "Crucible Matches Won",
 };
 
 export const SidePanelTitles: { [key: string]: string } = {
@@ -22,4 +23,5 @@ export const SidePanelTitles: { [key: string]: string } = {
   kdRatio: "KD Ratio in PVP",
   assists: "Assists in PVP",
   publicEventsCleared: "Heroic Public Events Cleared on account",
+  matchesWon: "Crucible Matches Won in PVP on account",
 };
