@@ -1,28 +1,19 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import RedirectButton from "@/pages/index";
 
-describe("RedirectButton", () => {
-  it("redirects to Bungie OAuth when clicked", () => {
-    // Mock the process.env.authID value
-    const originalEnv = process.env;
-    process.env.authID = "YOUR_CLIENT_ID";
+describe("RedirectButton component", () => {
+  test("redirects to the correct URL when button is clicked", () => {
+    const clientId = process.env.authID;
+    const expectedUrl = `https://www.bungie.net/en/oauth/authorize?client_id=${clientId}&response_type=code&state=6i0mkLx79Hp91nzWVeHrzHG4`;
 
-    // Render the component
-    const { getByText } = render(<RedirectButton />);
+    render(<RedirectButton />);
+    const button = screen.getByRole("button", {
+      name: /Click here to Login!/i,
+    });
 
-    // Find the button element
-    const button = getByText("Redirect to Bungie OAuth");
-
-    // Simulate a button click
     fireEvent.click(button);
 
-    // Assert that the window location has been changed to the expected Bungie OAuth URL
-    expect(window.location.href).toEqual(
-      "https://www.bungie.net/en/oauth/authorize?client_id=YOUR_CLIENT_ID&response_type=code&state=6i0mkLx79Hp91nzWVeHrzHG4"
-    );
-
-    // Restore the original process.env value
-    process.env = originalEnv;
+    expect(window.location.href).toBe(expectedUrl);
   });
 });
